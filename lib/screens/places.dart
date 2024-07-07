@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:placesapp/models/place.dart';
+import 'package:placesapp/providers/user_places.dart';
 import 'package:placesapp/screens/add_place.dart';
 import 'package:placesapp/widgets/places_list.dart';
 
-class PlacesScreen extends StatelessWidget {
+class PlacesScreen extends ConsumerWidget {
   const PlacesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final List<Place> userPlace = ref.watch(userPlacesProvider);
     final colorScheme = Theme.of(context).colorScheme;
 
     final colors = [
@@ -70,6 +74,6 @@ class PlacesScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: PlacesList(places: []));
+        body: PlacesList(places: userPlace));
   }
 }
